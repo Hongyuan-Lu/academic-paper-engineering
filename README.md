@@ -256,6 +256,15 @@ cd academic-paper-engineering/tests && python -m pytest -v
 5. **忠实处理**：禁止编造作者、标题、DOI 等参考文献信息；禁止翻译数学变量；禁止静默修改表格数值
 6. **编译透明**：编译失败不得向用户隐藏
 
+## 联系方式
+
+如有任何问题、建议或合作意向，请通过以下方式联系：
+
+- 邮箱: hongyuanlu9@gmail.com
+- GitHub Issues: [项目 Issues 页面](https://github.com/Hongyuan-Lu/academic-paper-engineering/issues)
+
+欢迎提交 Issue 或 Pull Request！
+
 ---
 
 # English Document
@@ -554,3 +563,12 @@ Tests cover 7 modules:
 ## License
 
 This project is provided as-is for academic and research purposes.
+
+## Contact
+
+For any questions, suggestions, or collaboration inquiries, please reach out via:
+
+- Email: hongyuanlu9@gmail.com
+- GitHub Issues: [Project Issues Page](https://github.com/Hongyuan-Lu/academic-paper-engineering/issues)
+
+Issues and Pull Requests are welcome!

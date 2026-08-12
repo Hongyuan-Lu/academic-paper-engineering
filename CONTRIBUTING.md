@@ -37,3 +37,12 @@ Please adhere to the core design principles outlined in the `README.md` and `SKI
 ## License
 
 By contributing, you agree that your contributions will be licensed under the project's MIT License.
+
+## Contact
+
+For any questions, suggestions, or collaboration inquiries, please reach out via:
+
+- Email: hongyuanlu9@gmail.com
+- GitHub Issues: [Project Issues Page](https://github.com/Hongyuan-Lu/academic-paper-engineering/issues)
+
+Welcome to submit Issues and Pull Requests!
