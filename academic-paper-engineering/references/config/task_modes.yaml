@@ -1,0 +1,76 @@
+# 任务模式配置
+task_modes:
+
+  # 仅 LaTeX 排版
+  latex_only:
+    translation: false
+    latex: true
+    template_analysis: true
+    asset_processing: true
+    qa: true
+    description: "将已有内容（英文或中文）排版为 LaTeX 工程，不进行翻译"
+
+  # 仅翻译
+  translation_only:
+    translation: true
+    latex: false
+    template_analysis: false
+    asset_processing: false
+    qa: true
+    description: "将中文学术内容翻译为英文，不生成 LaTeX"
+
+  # 翻译 + LaTeX 排版
+  translation_and_latex:
+    translation: true
+    latex: true
+    template_analysis: true
+    asset_processing: true
+    qa: true
+    description: "将中文学术内容翻译为英文并排版为 LaTeX 工程"
+
+  # 模板迁移
+  template_migration:
+    translation: false
+    latex: true
+    template_analysis: true
+    migration: true
+    asset_processing: true
+    qa: true
+    description: "将已有 LaTeX 工程从一种模板迁移到另一种模板"
+
+  # 文档转 LaTeX
+  document_to_latex:
+    translation: false
+    latex: true
+    template_analysis: true
+    asset_processing: true
+    qa: true
+    description: "将 DOCX/PDF/Markdown/TXT/PPTX/XLSX 转换为 LaTeX 工程"
+
+  # 资产处理
+  asset_processing:
+    translation: false
+    latex: optional
+    asset_processing: true
+    qa: true
+    description: "处理图片、表格、公式、参考文献等资产"
+
+# 任务模式路由规则
+routing_rules:
+  - condition: "源为英文且用户请求排版"
+    mode: "latex_only"
+    translation: false
+  - condition: "用户仅请求翻译"
+    mode: "translation_only"
+    latex: false
+  - condition: "用户请求模板转换"
+    mode: "template_migration"
+    translation: false
+  - condition: "用户请求按某期刊格式排版"
+    mode: "latex_only 或 document_to_latex"
+    latex: true
+    template_analysis: true
+  - condition: "用户提供已有 LaTeX 工程和目标模板"
+    mode: "template_migration"
+  - condition: "用户请求中英翻译并排版"
+    mode: "translation_and_latex"

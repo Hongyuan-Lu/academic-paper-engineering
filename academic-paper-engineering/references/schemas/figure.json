@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "图片（Figure）",
+  "description": "图片资产的结构化表示",
+  "type": "object",
+  "required": ["id", "number", "caption"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "图片唯一标识符"
+    },
+    "number": {
+      "type": "integer",
+      "description": "图片编号"
+    },
+    "caption": {
+      "type": "string",
+      "description": "图片标题说明"
+    },
+    "label": {
+      "type": "string",
+      "description": "LaTeX 标签"
+    },
+    "file_path": {
+      "type": "string",
+      "description": "图片文件路径"
+    },
+    "file_format": {
+      "type": "string",
+      "enum": ["png", "jpg", "jpeg", "tif", "tiff", "svg", "webp", "pdf", "eps"],
+      "description": "图片文件格式"
+    },
+    "width": {
+      "type": "string",
+      "description": "LaTeX 宽度设置，如 0.8\\textwidth"
+    },
+    "placement": {
+      "type": "string",
+      "enum": ["h", "t", "b", "p", "ht", "hb", "tp", "bp", "htbp", "H"],
+      "description": "浮动体位置选项"
+    },
+    "position_anchor": {
+      "type": "object",
+      "description": "位置锚点：记录图片在原文中的位置",
+      "properties": {
+        "after_paragraph": {"type": "string", "description": "图片应出现在此段落ID之后"},
+        "after_section": {"type": "string", "description": "所在章节ID"},
+        "original_page": {"type": "integer", "description": "原文中的页码"},
+        "anchor_type": {"type": "string", "enum": ["inline", "float"], "description": "inline=原位插入, float=浮动"}
+      }
+    },
+    "subfigures": {
+      "type": "array",
+      "description": "子图列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "caption": {"type": "string"},
+          "file_path": {"type": "string"},
+          "width": {"type": "string"}
+        }
+      }
+    },
+    "match_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "匹配置信度"
+    },
+    "match_status": {
+      "type": "string",
+      "enum": ["matched", "unmatched", "low_confidence"],
+      "description": "匹配状态"
+    }
+  }
+}

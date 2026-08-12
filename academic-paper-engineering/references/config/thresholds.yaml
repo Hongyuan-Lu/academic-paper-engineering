@@ -1,0 +1,40 @@
+# 阈值配置
+
+# 图片匹配置信度阈值
+figure_matching:
+  auto_insert: 0.85      # >= 0.85 自动插入
+  insert_with_warning: 0.60  # 0.60-0.85 插入但警告
+  do_not_insert: 0.60     # < 0.60 不自动插入
+
+# 翻译质量阈值
+translation_quality:
+  terminology_accuracy: 0.95   # 术语准确率
+  number_accuracy: 1.0         # 数字准确率（必须100%）
+  citation_accuracy: 1.0       # 引用准确率（必须100%）
+  structure_preservation: 0.98 # 结构保持率
+
+# 参考文献匹配阈值
+reference_matching:
+  auto_link: 0.90    # >= 0.90 自动关联
+  warn_link: 0.70    # 0.70-0.90 关联但警告
+  no_link: 0.70      # < 0.70 不自动关联
+
+# 编译警告阈值
+compilation:
+  max_errors: 0          # 错误数必须为0
+  max_warnings: 10       # 警告数上限
+  max_overfull_hbox: 5   # overfull hbox 上限
+  max_underfull_hbox: 10 # underfull hbox 上限
+
+# QA 状态判定
+qa_status:
+  pass:
+    errors: 0
+    warnings: 0
+    unresolved_issues: 0
+  pass_with_warnings:
+    errors: 0
+    warnings: ">=1"
+    unresolved_issues: ">=0"
+  fail:
+    errors: ">=1"

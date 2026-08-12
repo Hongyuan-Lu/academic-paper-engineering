@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "表格（Table）",
+  "description": "表格的结构化表示",
+  "type": "object",
+  "required": ["id", "number", "caption", "headers", "rows"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "表格唯一标识符"
+    },
+    "number": {
+      "type": "integer",
+      "description": "表格编号"
+    },
+    "caption": {
+      "type": "string",
+      "description": "表格标题说明"
+    },
+    "label": {
+      "type": "string",
+      "description": "LaTeX 标签"
+    },
+    "placement": {
+      "type": "string",
+      "description": "浮动体位置选项"
+    },
+    "position_anchor": {
+      "type": "object",
+      "description": "位置锚点：记录表格在原文中的位置",
+      "properties": {
+        "after_paragraph": {"type": "string", "description": "表格应出现在此段落ID之后"},
+        "after_section": {"type": "string", "description": "所在章节ID"},
+        "original_page": {"type": "integer", "description": "原文中的页码"},
+        "anchor_type": {"type": "string", "enum": ["inline", "float"], "description": "inline=原位插入, float=浮动"}
+      }
+    },
+    "headers": {
+      "type": "array",
+      "description": "表头行列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "row": {"type": "integer"},
+          "cells": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {"type": "string"},
+                "colspan": {"type": "integer", "default": 1},
+                "rowspan": {"type": "integer", "default": 1},
+                "alignment": {"type": "string", "enum": ["l", "c", "r"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "description": "数据行列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "row": {"type": "integer"},
+          "cells": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {"type": "string"},
+                "type": {"type": "string", "enum": ["text", "number", "symbol"]},
+                "colspan": {"type": "integer", "default": 1},
+                "rowspan": {"type": "integer", "default": 1}
+              }
+            }
+          }
+        }
+      }
+    },
+    "footnotes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "notes": {
+      "type": "string",
+      "description": "表格脚注内容"
+    },
+    "column_count": {
+      "type": "integer",
+      "description": "列数"
+    },
+    "row_count": {
+      "type": "integer",
+      "description": "行数（不含表头）"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["simple", "grouped", "longtable", "sidewaystable"],
+      "description": "表格类型"
+    }
+  }
+}

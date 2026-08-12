@@ -1,0 +1,120 @@
+# 系统配置
+system:
+  name: "科研论文智能排版与工程化系统"
+  version: "1.0.0"
+  default_language: "zh"
+  
+# 支持的输入格式
+input_formats:
+  documents:
+    - docx
+    - pdf
+    - md
+    - txt
+    - tex
+    - zip
+    - pptx
+    - xlsx
+  images:
+    - png
+    - jpg
+    - jpeg
+    - tif
+    - tiff
+    - svg
+    - webp
+  latex_assets:
+    - cls
+    - sty
+    - bib
+    - bst
+
+# 支持的语言
+languages:
+  source:
+    - zh
+    - en
+  target:
+    - en
+    - zh
+
+# 内置模板（位于 skill 目录下的 assets/templates/ 文件夹）
+builtin_templates:
+  - name: "Elsevier (elsarticle)"
+    path: "assets/templates/Elsevier/"
+    document_class: "elsarticle"
+    citation_engines: ["bibtex", "biber"]
+  - name: "Cell Press"
+    path: "assets/templates/Cell-Press/"
+    document_class: "cas-sc / cas-dc"
+    citation_engines: ["bibtex"]
+  - name: "Springer"
+    path: "assets/templates/Springer/"
+    document_class: "sn-jnl"
+    citation_engines: ["bibtex"]
+  - name: "MDPI"
+    path: "assets/templates/MDPI/"
+    document_class: "mdpi"
+    citation_engines: ["bibtex"]
+  - name: "Frontiers"
+    path: "assets/templates/Frontiers/"
+    document_class: "FrontiersinHarvard / FrontiersinVancouver"
+    citation_engines: ["bibtex"]
+  - name: "Taylor & Francis"
+    path: "assets/templates/Taylor-Francis/"
+    document_class: "interact"
+    citation_engines: ["bibtex"]
+  - name: "Wiley"
+    path: "assets/templates/Wiley/"
+    document_class: "Wiley-authoringtemplate"
+    citation_engines: ["bibtex"]
+  - name: "arXiv (NeurIPS)"
+    path: "assets/templates/arXiv/"
+    document_class: "article"
+    citation_engines: ["bibtex", "biber"]
+  - name: "IEEE"
+    path: ""  # 无内置模板文件，使用规范定义
+    spec_file: "references/prompts/latex/ieee_template_spec.md"
+    document_class: "IEEEtran"
+    citation_engines: ["bibtex"]
+
+# 文档解析脚本路径（位于 skill 目录下的 scripts/ 文件夹）
+parsers:
+  docx: "scripts/docx/"
+  pdf: "scripts/pdf/"
+  pptx: "scripts/pptx/"
+  xlsx: "scripts/xlsx/"
+  common: "scripts/common/"
+
+# Python 模块路径（位于 skill 目录下）
+python_modules:
+  parsers: "src/parsers/"
+  processors: "src/processors/"
+  latex_engine: "src/latex/"
+  qa: "src/qa/"
+
+# 编译配置
+compilation:
+  engine: "pdflatex"
+  fallback_engine: "xelatex"
+  bibliography_tool: "bibtex"
+  max_passes: 3
+  timeout_seconds: 120
+
+# 输出工程结构
+output_structure:
+  root: "paper_project/"
+  directories:
+    - "sections/"
+    - "figures/"
+    - "tables/"
+    - "template/"
+    - "translation/"
+    - "QA/"
+  main_file: "main.tex"
+  bibliography_file: "references.bib"
+  qa_report: "QA/quality_report.md"
+  terminology_dictionary: "QA/terminology_dictionary.json"
+  translation_memory: "QA/translation_memory.json"
+  style_profile: "QA/style_profile.json"
+  translated_paper: "translation/translated_paper.md"

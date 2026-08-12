@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "参考文献（Reference）",
+  "description": "参考文献的结构化表示",
+  "type": "object",
+  "required": ["id", "key", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "参考文献唯一标识符"
+    },
+    "key": {
+      "type": "string",
+      "description": "BibTeX 引用键"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["article", "inproceedings", "book", "incollection", "phdthesis", "mastersthesis", "techreport", "misc", "online", "dataset"],
+      "description": "BibTeX 条目类型"
+    },
+    "fields": {
+      "type": "object",
+      "description": "BibTeX 字段",
+      "properties": {
+        "title": {"type": "string"},
+        "author": {"type": "string"},
+        "journal": {"type": "string"},
+        "booktitle": {"type": "string"},
+        "publisher": {"type": "string"},
+        "year": {"type": "string"},
+        "volume": {"type": "string"},
+        "number": {"type": "string"},
+        "pages": {"type": "string"},
+        "doi": {"type": "string"},
+        "url": {"type": "string"},
+        "note": {"type": "string"}
+      }
+    },
+    "bibtex": {
+      "type": "string",
+      "description": "生成的 BibTeX 条目"
+    },
+    "citations": {
+      "type": "array",
+      "description": "引用此参考文献的引用ID列表",
+      "items": {"type": "string"}
+    },
+    "status": {
+      "type": "string",
+      "enum": ["resolved", "unresolved"],
+      "description": "解析状态"
+    }
+  }
+}

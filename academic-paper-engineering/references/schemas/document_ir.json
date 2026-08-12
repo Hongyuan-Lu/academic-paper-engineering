@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "学术文档中间表示（Document IR）",
+  "description": "所有文档处理操作的统一中间表示格式",
+  "type": "object",
+  "required": ["document_id", "metadata", "sections"],
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "description": "文档唯一标识符"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["source_format", "source_language"],
+      "properties": {
+        "source_format": {
+          "type": "string",
+          "enum": ["docx", "pdf", "md", "txt", "tex", "pptx", "xlsx"],
+          "description": "源文档格式"
+        },
+        "source_language": {
+          "type": "string",
+          "enum": ["zh", "en"],
+          "description": "源文档语言"
+        },
+        "target_language": {
+          "type": "string",
+          "enum": ["zh", "en"],
+          "description": "目标语言"
+        },
+        "page_count": {
+          "type": "integer",
+          "description": "页数"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        }
+      }
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "text": {"type": "string", "description": "标题文本"}
+      }
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "affiliation_id": {"type": "string"},
+          "email": {"type": "string"},
+          "orcid": {"type": "string"}
+        }
+      }
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "text": {"type": "string"}
+        }
+      }
+    },
+    "abstract": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "text": {"type": "string"}
+      }
+    },
+    "keywords": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "items": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "description": "章节列表",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "level"],
+        "properties": {
+          "id": {"type": "string"},
+          "number": {"type": "string", "description": "章节编号，如 1, 1.1"},
+          "title": {"type": "string"},
+          "level": {"type": "integer", "description": "层级，1为最高"},
+          "paragraphs": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "subsections": {
+            "type": "array",
+            "items": {"type": "object"}
+          }
+        }
+      }
+    },
+    "figures": {
+      "type": "array",
+      "items": {
+        "$ref": "figure.json"
+      }
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "$ref": "table.json"
+      }
+    },
+    "equations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "number": {"type": "integer"},
+          "type": {"type": "string", "enum": ["inline", "display", "numbered", "align", "cases", "matrix"]},
+          "latex": {"type": "string"},
+          "label": {"type": "string"}
+        }
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "key": {"type": "string"},
+          "text": {"type": "string"},
+          "location": {"type": "string", "description": "引用在文档中的位置"}
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "reference.json"
+      }
+    },
+    "footnotes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "text": {"type": "string"},
+          "location": {"type": "string"}
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "description": "外部资产列表",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "type": {"type": "string"},
+          "path": {"type": "string"},
+          "matched": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

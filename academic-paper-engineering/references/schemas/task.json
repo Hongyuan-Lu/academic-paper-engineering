@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "任务（Task）",
+  "description": "任务路由器的输出模式",
+  "type": "object",
+  "required": ["task_mode", "source_formats", "source_language", "translation_required", "latex_required"],
+  "properties": {
+    "task_mode": {
+      "type": "string",
+      "enum": ["latex_only", "translation_only", "translation_and_latex", "template_migration", "document_to_latex", "asset_processing"],
+      "description": "任务模式"
+    },
+    "source_formats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["docx", "pdf", "md", "txt", "tex", "zip", "pptx", "xlsx", "png", "jpg", "jpeg", "tif", "tiff", "svg", "webp", "cls", "sty", "bib", "bst"]
+      },
+      "description": "源文件格式列表"
+    },
+    "source_language": {
+      "type": "string",
+      "enum": ["zh", "en"],
+      "description": "源语言"
+    },
+    "target_language": {
+      "type": "string",
+      "enum": ["zh", "en"],
+      "description": "目标语言"
+    },
+    "translation_required": {
+      "type": "boolean",
+      "description": "是否需要翻译"
+    },
+    "latex_required": {
+      "type": "boolean",
+      "description": "是否需要 LaTeX 生成"
+    },
+    "template_migration": {
+      "type": "boolean",
+      "description": "是否需要模板迁移"
+    },
+    "template_source": {
+      "type": "string",
+      "enum": ["builtin", "custom", "existing", "none"],
+      "description": "模板来源"
+    },
+    "template_name": {
+      "type": "string",
+      "description": "目标模板名称（如使用内置模板）"
+    },
+    "figures_available": {
+      "type": "boolean",
+      "description": "是否存在图片"
+    },
+    "tables_available": {
+      "type": "boolean",
+      "description": "是否存在表格"
+    },
+    "equations_available": {
+      "type": "boolean",
+      "description": "是否存在公式"
+    },
+    "references_available": {
+      "type": "boolean",
+      "description": "是否存在参考文献"
+    }
+  }
+}
