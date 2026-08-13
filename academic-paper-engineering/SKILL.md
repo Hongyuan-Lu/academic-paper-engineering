@@ -1,6 +1,6 @@
 ---
-name: "academic-paper-engineering"
-description: "将 DOCX/PDF/Markdown/LaTeX 论文转化为完整可编译的 LaTeX 工程，支持中英学术翻译（可选）、8种期刊模板适配与迁移、自定义模板上传、图表公式参考文献处理、自动编译与12项质量审查。当用户需要论文排版、格式转换、模板迁移、学术翻译、图表公式提取或参考文献管理时调用。"
+name: academic-paper-engineering
+description: 将 DOCX/PDF/Markdown/LaTeX 论文转化为完整可编译的 LaTeX 工程，支持中英学术翻译（可选）、8种期刊模板适配与迁移、自定义模板上传、图表公式参考文献处理、自动编译与12项质量审查。当用户需要论文排版、格式转换、模板迁移、学术翻译、图表公式提取或参考文献管理时调用。
 ---
 
 # 科研论文智能排版与工程化 Skill
