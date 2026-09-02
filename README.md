@@ -26,82 +26,92 @@
 ## 目录结构
 
 ```
-学术论文翻译和排版/                     # GitHub 仓库
+academic-paper-engineering/           # GitHub 仓库
 ├── .gitignore
 ├── README.md                         # 本文件
 ├── LICENSE
+├── CONTRIBUTING.md                   # 贡献指南
+├── requirements.txt                  # Python 依赖
 │
 └── academic-paper-engineering/       # Skill 主目录
     ├── SKILL.md                      # Skill 主定义文件
     │
     ├── references/                   # 参考文档（AI Agent 读取）
-│   ├── config/                       # 系统配置
-│   │   ├── system.yaml               # 系统配置（模板路径、编译配置、输出结构）
-│   │   ├── task_modes.yaml           # 6 种任务模式定义与路由规则
-│   │   └── thresholds.yaml           # 质量阈值（图片匹配、翻译质量、编译警告）
-│   ├── prompts/                      # 处理提示词
-│   │   ├── router.md                 # 任务路由与识别
-│   │   ├── document_analysis.md      # 文档结构解析
-│   │   ├── translation/              # 翻译提示词（12 个，按章节类型）
-│   │   ├── latex/                    # LaTeX 提示词（7 个）
-│   │   ├── assets/                   # 资产处理提示词（5 个）
-│   │   ├── references/               # 参考文献处理
-│   │   └── qa/                       # 质量检查提示词（3 个）
-│   ├── rules/                        # 处理规则（7 个）
-│   │   ├── core_rules.md             # 核心规则
-│   │   ├── terminology.md            # 术语规则
-│   │   ├── citation_rules.md         # 引用规则
-│   │   ├── figure_rules.md           # 图片规则
-│   │   ├── table_rules.md            # 表格规则
-│   │   ├── equation_rules.md         # 公式规则
-│   │   └── latex_rules.md            # LaTeX 规则
-│   └── schemas/                      # JSON Schema 定义
-│       ├── document_ir.json          # 文档 IR 模式
-│       ├── figure.json               # 图片模式
-│       ├── table.json                # 表格模式
-│       ├── reference.json            # 参考文献模式
-│       └── task.json                 # 任务模式
-│
-├── assets/                           # 静态资源（LaTeX 模板）
-│   └── templates/                    # LaTeX 期刊模板
-│       ├── Elsevier/                 # elsarticle 模板
-│       ├── Cell-Press/               # CAS 模板（Cell Press 期刊）
-│       ├── Springer/                 # sn-jnl 模板
-│       ├── MDPI/                     # mdpi.cls 模板
-│       ├── Frontiers/                # Harvard/Vancouver 模板
-│       ├── Taylor-Francis/           # interact.cls 模板
-│       ├── Wiley/                    # Wiley-authoringtemplate
-│       ├── arXiv/                    # NeurIPS 2018 模板
-│       └── CHEATSHEET.md             # 模板速查表
-│
-├── src/                              # Python 核心引擎库
-│   ├── parsers/                      # 文档解析器（6 个）
-│   ├── processors/                   # 内容处理器（6 个）
-│   ├── latex/                        # LaTeX 引擎（渲染器、编译器、验证器）
-│   └── qa/                           # 质量检查器（4 个）
-│
-├── scripts/                          # 文档处理脚本
-│   ├── docx/                         # Word 文档处理
-│   ├── pdf/                          # PDF 表单与转换
-│   ├── pptx/                         # PPT 幻灯片处理
-│   ├── xlsx/                         # Excel 数据表处理
-│   └── common/                       # Office 公共模块（验证器、XSD 模式）
-│
-├── examples/                         # 使用示例
-│   ├── latex_only/                   # 仅 LaTeX 排版示例
-│   ├── translation_only/             # 仅翻译示例
-│   ├── translation_latex/            # 翻译 + LaTeX 排版示例
-│   ├── template_migration/           # 模板迁移示例
-│   └── complex_paper/                # 复杂论文完整处理示例
-│
-└── tests/                            # 测试套件
-    ├── test_parsers/                 # 解析器测试
-    ├── test_translation/             # 翻译测试
-    ├── test_figures/                 # 图片管理测试
-    ├── test_tables/                  # 表格管理测试
-    ├── test_references/              # 参考文献测试
-    ├── test_latex/                   # LaTeX 渲染测试
-    └── test_end_to_end/              # 端到端工作流测试
+    │   ├── config/                   # 系统配置
+    │   │   ├── system.yaml           # 系统配置（模板路径、编译配置、输出结构）
+    │   │   ├── task_modes.yaml       # 6 种任务模式定义与路由规则
+    │   │   └── thresholds.yaml       # 质量阈值（图片匹配、翻译质量、编译警告）
+    │   ├── prompts/                  # 处理提示词
+    │   │   ├── router.md             # 任务路由与识别
+    │   │   ├── document_analysis.md  # 文档结构解析
+    │   │   ├── translation/          # 翻译提示词（12 个，按章节类型）
+    │   │   ├── latex/                # LaTeX 提示词（7 个）
+    │   │   ├── assets/               # 资产处理提示词（5 个）
+    │   │   ├── references/           # 参考文献处理
+    │   │   └── qa/                   # 质量检查提示词（3 个）
+    │   ├── rules/                    # 处理规则（7 个）
+    │   │   ├── core_rules.md         # 核心规则
+    │   │   ├── terminology.md        # 术语规则
+    │   │   ├── citation_rules.md     # 引用规则
+    │   │   ├── figure_rules.md       # 图片规则
+    │   │   ├── table_rules.md        # 表格规则
+    │   │   ├── equation_rules.md     # 公式规则
+    │   │   └── latex_rules.md        # LaTeX 规则
+    │   └── schemas/                  # JSON Schema 定义
+    │       ├── document_ir.json      # 文档 IR 模式
+    │       ├── figure.json           # 图片模式
+    │       ├── table.json            # 表格模式
+    │       ├── reference.json        # 参考文献模式
+    │       └── task.json             # 任务模式
+    │
+    ├── assets/                       # 静态资源（LaTeX 模板）
+    │   └── templates/                # LaTeX 期刊模板
+    │       ├── Elsevier/             # elsarticle 模板
+    │       ├── Cell-Press/           # CAS 模板（Cell Press 期刊）
+    │       ├── Springer/             # sn-jnl 模板
+    │       ├── MDPI/                 # mdpi.cls 模板
+    │       ├── Frontiers/            # Harvard/Vancouver 模板
+    │       ├── Taylor-Francis/       # interact.cls 模板
+    │       ├── Wiley/                # Wiley-authoringtemplate
+    │       ├── arXiv/                # NeurIPS 2018 模板
+    │       └── CHEATSHEET.md         # 模板速查表
+    │
+    ├── src/                          # Python 核心引擎库
+    │   ├── parsers/                  # 文档解析器（6 个）
+    │   ├── processors/               # 内容处理器（6 个）
+    │   ├── latex/                    # LaTeX 引擎（渲染器、编译器、验证器）
+    │   └── qa/                       # 质量检查器（4 个）
+    │
+    ├── scripts/                      # 文档处理脚本
+    │   ├── docx/                     # Word 文档处理
+    │   ├── pdf/                      # PDF 表单与转换
+    │   ├── pptx/                     # PPT 幻灯片处理
+    │   ├── xlsx/                     # Excel 数据表处理
+    │   └── common/                   # Office 公共模块
+    │       └── office/               # Office 文档处理
+    │           ├── helpers/          # PPTX 处理辅助模块
+    │           ├── schemas/          # XSD 模式文件（OOXML 标准）
+    │           ├── validators/       # 文档验证器
+    │           ├── soffice.py        # LibreOffice 集成
+    │           └── validate.py       # 验证入口
+    │
+    ├── examples/                     # 使用示例
+    │   ├── README.md                 # 示例说明
+    │   ├── latex_only/               # 仅 LaTeX 排版示例
+    │   ├── translation_only/         # 仅翻译示例
+    │   ├── translation_latex/        # 翻译 + LaTeX 排版示例
+    │   ├── template_migration/       # 模板迁移示例
+    │   └── complex_paper/            # 复杂论文完整处理示例
+    │
+    └── tests/                        # 测试套件
+        ├── README.md                 # 测试说明
+        ├── test_parsers/             # 解析器测试
+        ├── test_translation/         # 翻译测试
+        ├── test_figures/             # 图片管理测试
+        ├── test_tables/              # 表格管理测试
+        ├── test_references/          # 参考文献测试
+        ├── test_latex/               # LaTeX 渲染测试
+        └── test_end_to_end/          # 端到端工作流测试
 ```
 
 ## 任务模式
@@ -289,82 +299,92 @@ This is an AI Agent-oriented Skill. The core design principle: **LaTeX engineeri
 ## Directory Structure
 
 ```
-Academic Paper Engineering (repo root)
+academic-paper-engineering/           # GitHub repository
 ├── .gitignore
 ├── README.md                         # This file
 ├── LICENSE
+├── CONTRIBUTING.md                   # Contributing guidelines
+├── requirements.txt                  # Python dependencies
 │
 └── academic-paper-engineering/       # Skill directory
     ├── SKILL.md                      # Main skill definition
     │
     ├── references/                   # Reference documentation (AI-readable)
-│   ├── config/                       # System configuration
-│   │   ├── system.yaml               # System config (template paths, compilation, output)
-│   │   ├── task_modes.yaml           # 6 task mode definitions & routing rules
-│   │   └── thresholds.yaml           # Quality thresholds (figure matching, translation, compilation)
-│   ├── prompts/                      # Processing prompts
-│   │   ├── router.md                 # Task routing & recognition
-│   │   ├── document_analysis.md      # Document structure analysis
-│   │   ├── translation/              # Translation prompts (12 files, by section type)
-│   │   ├── latex/                    # LaTeX prompts (7 files)
-│   │   ├── assets/                   # Asset processing prompts (5 files)
-│   │   ├── references/               # Reference processing
-│   │   └── qa/                       # Quality check prompts (3 files)
-│   ├── rules/                        # Processing rules (7 files)
-│   │   ├── core_rules.md             # Core rules
-│   │   ├── terminology.md            # Terminology rules
-│   │   ├── citation_rules.md         # Citation rules
-│   │   ├── figure_rules.md           # Figure rules
-│   │   ├── table_rules.md            # Table rules
-│   │   ├── equation_rules.md         # Equation rules
-│   │   └── latex_rules.md            # LaTeX rules
-│   └── schemas/                      # JSON Schema definitions
-│       ├── document_ir.json          # Document IR schema
-│       ├── figure.json               # Figure schema
-│       ├── table.json                # Table schema
-│       ├── reference.json            # Reference schema
-│       └── task.json                 # Task schema
-│
-├── assets/                           # Static assets (LaTeX templates)
-│   └── templates/                    # LaTeX journal templates
-│       ├── Elsevier/                 # elsarticle template
-│       ├── Cell-Press/               # CAS templates (Cell Press journals)
-│       ├── Springer/                 # sn-jnl template
-│       ├── MDPI/                     # mdpi.cls template
-│       ├── Frontiers/                # Harvard/Vancouver templates
-│       ├── Taylor-Francis/           # interact.cls template
-│       ├── Wiley/                    # Wiley-authoringtemplate
-│       ├── arXiv/                    # NeurIPS 2018 template
-│       └── CHEATSHEET.md             # Template quick reference
-│
-├── src/                              # Python core engine library
-│   ├── parsers/                      # Document parsers (6)
-│   ├── processors/                   # Content processors (6)
-│   ├── latex/                        # LaTeX engine (renderer, compiler, validator)
-│   └── qa/                           # Quality checkers (4)
-│
-├── scripts/                          # Document processing scripts
-│   ├── docx/                         # Word document processing
-│   ├── pdf/                          # PDF form & conversion
-│   ├── pptx/                         # PowerPoint slide processing
-│   ├── xlsx/                         # Excel spreadsheet processing
-│   └── common/                       # Shared Office modules (validators, XSD schemas)
-│
-├── examples/                         # Usage examples
-│   ├── latex_only/                   # LaTeX-only typesetting example
-│   ├── translation_only/             # Translation-only example
-│   ├── translation_latex/            # Translation + LaTeX example
-│   ├── template_migration/           # Template migration example
-│   └── complex_paper/                # Complex paper full processing example
-│
-└── tests/                            # Test suite
-    ├── test_parsers/                 # Parser tests
-    ├── test_translation/             # Translation tests
-    ├── test_figures/                 # Figure manager tests
-    ├── test_tables/                  # Table manager tests
-    ├── test_references/              # Reference manager tests
-    ├── test_latex/                   # LaTeX renderer tests
-    └── test_end_to_end/              # End-to-end workflow tests
+    │   ├── config/                   # System configuration
+    │   │   ├── system.yaml           # System config (template paths, compilation, output)
+    │   │   ├── task_modes.yaml       # 6 task mode definitions & routing rules
+    │   │   └── thresholds.yaml       # Quality thresholds (figure matching, translation, compilation)
+    │   ├── prompts/                  # Processing prompts
+    │   │   ├── router.md             # Task routing & recognition
+    │   │   ├── document_analysis.md  # Document structure analysis
+    │   │   ├── translation/          # Translation prompts (12 files, by section type)
+    │   │   ├── latex/                # LaTeX prompts (7 files)
+    │   │   ├── assets/               # Asset processing prompts (5 files)
+    │   │   ├── references/           # Reference processing
+    │   │   └── qa/                   # Quality check prompts (3 files)
+    │   ├── rules/                    # Processing rules (7 files)
+    │   │   ├── core_rules.md         # Core rules
+    │   │   ├── terminology.md        # Terminology rules
+    │   │   ├── citation_rules.md     # Citation rules
+    │   │   ├── figure_rules.md       # Figure rules
+    │   │   ├── table_rules.md        # Table rules
+    │   │   ├── equation_rules.md     # Equation rules
+    │   │   └── latex_rules.md        # LaTeX rules
+    │   └── schemas/                  # JSON Schema definitions
+    │       ├── document_ir.json      # Document IR schema
+    │       ├── figure.json           # Figure schema
+    │       ├── table.json            # Table schema
+    │       ├── reference.json        # Reference schema
+    │       └── task.json             # Task schema
+    │
+    ├── assets/                       # Static assets (LaTeX templates)
+    │   └── templates/                # LaTeX journal templates
+    │       ├── Elsevier/             # elsarticle template
+    │       ├── Cell-Press/           # CAS templates (Cell Press journals)
+    │       ├── Springer/             # sn-jnl template
+    │       ├── MDPI/                 # mdpi.cls template
+    │       ├── Frontiers/            # Harvard/Vancouver templates
+    │       ├── Taylor-Francis/       # interact.cls template
+    │       ├── Wiley/                # Wiley-authoringtemplate
+    │       ├── arXiv/                # NeurIPS 2018 template
+    │       └── CHEATSHEET.md         # Template quick reference
+    │
+    ├── src/                          # Python core engine library
+    │   ├── parsers/                  # Document parsers (6)
+    │   ├── processors/               # Content processors (6)
+    │   ├── latex/                    # LaTeX engine (renderer, compiler, validator)
+    │   └── qa/                       # Quality checkers (4)
+    │
+    ├── scripts/                      # Document processing scripts
+    │   ├── docx/                     # Word document processing
+    │   ├── pdf/                      # PDF form & conversion
+    │   ├── pptx/                     # PowerPoint slide processing
+    │   ├── xlsx/                     # Excel spreadsheet processing
+    │   └── common/                   # Shared Office modules
+    │       └── office/               # Office document processing
+    │           ├── helpers/          # PPTX processing helpers
+    │           ├── schemas/          # XSD schemas (OOXML standards)
+    │           ├── validators/       # Document validators
+    │           ├── soffice.py        # LibreOffice integration
+    │           └── validate.py       # Validation entry point
+    │
+    ├── examples/                     # Usage examples
+    │   ├── README.md                 # Examples overview
+    │   ├── latex_only/               # LaTeX-only typesetting example
+    │   ├── translation_only/         # Translation-only example
+    │   ├── translation_latex/        # Translation + LaTeX example
+    │   ├── template_migration/       # Template migration example
+    │   └── complex_paper/            # Complex paper full processing example
+    │
+    └── tests/                        # Test suite
+        ├── README.md                 # Test documentation
+        ├── test_parsers/             # Parser tests
+        ├── test_translation/         # Translation tests
+        ├── test_figures/             # Figure manager tests
+        ├── test_tables/              # Table manager tests
+        ├── test_references/          # Reference manager tests
+        ├── test_latex/               # LaTeX renderer tests
+        └── test_end_to_end/          # End-to-end workflow tests
 ```
 
 ## Task Modes
